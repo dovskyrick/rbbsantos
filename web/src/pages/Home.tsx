@@ -77,11 +77,11 @@ export default function Home() {
           >
             View satellite demo
           </a>
-          <a href="PLACEHOLDER_CV_FILE_PATH" className="btn btn-outline">
+          <a href="/cv.pdf" target="_blank" rel="noreferrer" className="btn btn-outline">
             Download CV
           </a>
           <a
-            href="PLACEHOLDER_GITHUB_LINK"
+            href="https://github.com/dovskyrick"
             target="_blank"
             rel="noreferrer"
             className="btn btn-outline"
@@ -100,10 +100,11 @@ export default function Home() {
       <section className="home-section" id="preview">
         <p className="section-label">Satellite visualization</p>
         <div className="preview-frame">
-          <div className="preview-placeholder">
-            <span className="preview-placeholder-icon">🛰</span>
-            <span>PLACEHOLDER_SATELLITE_DASHBOARD_SCREENSHOT_PATH</span>
-          </div>
+          <img
+            src="/scenario3-anomalous-pass.png"
+            alt="Screenshot of a satellite operations visualization dashboard combining Grafana time series with a Cesium spatial view."
+            className="preview-img"
+          />
         </div>
         <p className="preview-caption">
           Satellite operations dashboard prototype integrating Grafana time series
@@ -119,7 +120,7 @@ export default function Home() {
             Open live demo
           </a>
           <a
-            href="PLACEHOLDER_SATELLITE_REPOSITORY_LINK"
+            href="https://github.com/dovskyrick/grafana-satellite-visualizer"
             target="_blank"
             rel="noreferrer"
             className="btn btn-outline"
@@ -164,7 +165,7 @@ export default function Home() {
               Live demo
             </a>
             <a
-              href="PLACEHOLDER_SATELLITE_REPOSITORY_LINK"
+              href="https://github.com/dovskyrick/grafana-satellite-visualizer"
               target="_blank"
               rel="noreferrer"
               className="btn btn-outline"
@@ -172,7 +173,7 @@ export default function Home() {
               GitHub
             </a>
             <a
-              href="PLACEHOLDER_THESIS_PDF_PATH_OR_COMING_SOON"
+              href="/Master-Thesis-Ricardo-Santos.pdf"
               target="_blank"
               rel="noreferrer"
               className="btn btn-outline"
@@ -332,14 +333,14 @@ export default function Home() {
             LinkedIn
           </a>
           <a
-            href="PLACEHOLDER_GITHUB_LINK"
+            href="https://github.com/dovskyrick"
             target="_blank"
             rel="noreferrer"
             className="btn btn-outline"
           >
             GitHub
           </a>
-          <a href="PLACEHOLDER_CV_FILE_PATH" className="btn btn-outline">
+          <a href="/cv.pdf" target="_blank" rel="noreferrer" className="btn btn-outline">
             Download CV
           </a>
           <a href="tel:+351925224133" className="btn btn-outline">
@@ -350,7 +351,7 @@ export default function Home() {
 
       {/* ─── FOOTER ─── */}
       <footer className="home-footer">
-        <a href="PLACEHOLDER_VISUAL_EXPERIMENTS_PATH" className="home-footer-art">
+        <a href="/visual-experiments" className="home-footer-art">
           Art and visual experiments →
         </a>
       </footer>
