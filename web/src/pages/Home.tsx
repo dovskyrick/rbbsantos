@@ -20,7 +20,6 @@ const SKILLS = {
     'MATLAB',
     'C',
     'Git',
-    'Rust (learning)',
   ],
   'Engineering and simulation': [
     'Simulink',
