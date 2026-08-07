@@ -20,7 +20,6 @@ const SKILLS = {
     'MATLAB',
     'C',
     'Git',
-    'Rust (learning)',
   ],
   'Engineering and simulation': [
     'Simulink',
@@ -242,7 +241,7 @@ export default function Home() {
             <div className="edu-main">
               <p className="edu-degree">MSc in Aerospace Engineering</p>
               <p className="edu-institution">Instituto Superior Técnico</p>
-              <p className="edu-gpa">GPA 16.79 / 20</p>
+              <p className="edu-gpa">GPA 17 / 20</p>
             </div>
             <span className="edu-period">2024 – present</span>
           </div>
@@ -342,9 +341,6 @@ export default function Home() {
           </a>
           <a href="/cv.pdf" target="_blank" rel="noreferrer" className="btn btn-outline">
             Download CV
-          </a>
-          <a href="tel:+351925224133" className="btn btn-outline">
-            +351 925 224 133
           </a>
         </div>
       </section>
