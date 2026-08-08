@@ -23,7 +23,7 @@ LinkedIn:
 https://linkedin.com/in/rbbsantos
 
 Email:
-ricardo.belchior@tecnico.ulisboa.pt
+ricardo.santos.engin@gmail.com
 
 Phone:
 +351 925 224 133
@@ -93,7 +93,7 @@ GitHub:
 PLACEHOLDER_GITHUB_LINK
 
 Contact:
-mailto:ricardo.belchior@tecnico.ulisboa.pt
+mailto:ricardo.santos.engin@gmail.com
 
 The satellite demo button should be the strongest call to action.
 
@@ -326,7 +326,7 @@ Open to opportunities related to aerospace software, satellite operations tools,
 Contact links:
 
 Email:
-mailto:ricardo.belchior@tecnico.ulisboa.pt
+mailto:ricardo.santos.engin@gmail.com
 
 LinkedIn:
 https://linkedin.com/in/rbbsantos

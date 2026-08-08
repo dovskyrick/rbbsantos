@@ -87,7 +87,7 @@ export default function Home() {
           >
             GitHub
           </a>
-          <a href="mailto:ricardo.belchior@tecnico.ulisboa.pt" className="btn btn-outline">
+          <a href="mailto:ricardo.santos.engin@gmail.com" className="btn btn-outline">
             Contact
           </a>
         </div>
@@ -320,7 +320,7 @@ export default function Home() {
           visualization, and mission analysis interfaces.
         </p>
         <div className="contact-links">
-          <a href="mailto:ricardo.belchior@tecnico.ulisboa.pt" className="btn btn-primary">
+          <a href="mailto:ricardo.santos.engin@gmail.com" className="btn btn-primary">
             Email
           </a>
           <a
