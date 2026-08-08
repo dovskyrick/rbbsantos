@@ -519,23 +519,13 @@
   gap: 18px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 14px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(74, 120, 200, 0.3) transparent;
+  /* The dots below are the scroll affordance, so the native bar is hidden. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .video-strip::-webkit-scrollbar {
-  height: 6px;
-}
-
-.video-strip::-webkit-scrollbar-track {
-  background: rgba(74, 120, 200, 0.06);
-  border-radius: 3px;
-}
-
-.video-strip::-webkit-scrollbar-thumb {
-  background: rgba(74, 120, 200, 0.28);
-  border-radius: 3px;
+  display: none;
 }
 
 .video-card {
@@ -646,7 +636,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-top: 18px;
+  margin-top: 30px;
 }
 
 .video-dot {
