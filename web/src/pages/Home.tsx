@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './Home.css';
 
 /* Scenario walkthrough videos. Labels are Ricardo's own numbering — the
@@ -22,6 +22,7 @@ const ACADEMIC_PROJECTS = [
   {
     title: 'Gravity-compensated fluid antenna',
     course: 'Antennas and Propagation · Instituto Superior Técnico',
+    note: 'Team of two',
     desc: 'An antenna that keeps itself pointed. Two immiscible liquids inside the structure redistribute under buoyancy as it tilts, passively steering the main beam back toward vertical — no motors, no control loop. Modelled in CST Studio Suite, covering radiation-pattern behaviour across tilt angles and S11 return-loss analysis.',
     tools: ['CST Studio Suite'],
   },
@@ -146,6 +147,61 @@ function VideoCard({ id, label }: { id: string; label: string }) {
   );
 }
 
+/* The strip is always wider than the section, so the dots are shown
+   unconditionally — they are what tells a visitor it scrolls at all. */
+function ScenarioStrip() {
+  const stripRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const cardsOf = (el: HTMLDivElement) => Array.from(el.children) as HTMLElement[];
+
+  const handleScroll = () => {
+    const el = stripRef.current;
+    if (!el) return;
+    const stripLeft = el.getBoundingClientRect().left;
+    let nearest = 0;
+    let shortest = Infinity;
+    cardsOf(el).forEach((card, i) => {
+      const distance = Math.abs(card.getBoundingClientRect().left - stripLeft);
+      if (distance < shortest) {
+        shortest = distance;
+        nearest = i;
+      }
+    });
+    setActive(nearest);
+  };
+
+  const goTo = (i: number) => {
+    const el = stripRef.current;
+    if (!el) return;
+    const cards = cardsOf(el);
+    if (!cards[i]) return;
+    el.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: 'smooth' });
+  };
+
+  return (
+    <>
+      <div className="video-strip" ref={stripRef} onScroll={handleScroll}>
+        {SCENARIOS.map((s) => (
+          <VideoCard key={s.id} id={s.id} label={s.label} />
+        ))}
+      </div>
+      <div className="video-dots">
+        {SCENARIOS.map((s, i) => (
+          <button
+            key={s.id}
+            type="button"
+            className="video-dot"
+            aria-label={`Go to ${s.label}`}
+            aria-current={i === active}
+            onClick={() => goTo(i)}
+          />
+        ))}
+      </div>
+    </>
+  );
+}
+
 export default function Home() {
   return (
     <div className="home">
@@ -246,11 +302,7 @@ export default function Home() {
           dashboard works and served as the exercise material for the scenario-based
           user study.
         </p>
-        <div className="video-strip">
-          {SCENARIOS.map((s) => (
-            <VideoCard key={s.id} id={s.id} label={s.label} />
-          ))}
-        </div>
+        <ScenarioStrip />
       </section>
 
       <hr className="section-divider" />
