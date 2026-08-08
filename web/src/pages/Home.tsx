@@ -1,4 +1,61 @@
+import { useState } from 'react';
 import './Home.css';
+
+/* Scenario walkthrough videos. Labels are Ricardo's own numbering — the
+   YouTube titles themselves have not been cross-checked. */
+const SCENARIOS = [
+  { id: 'x_21B58FHzg', label: 'Scenario 1' },
+  { id: 'blCW6i9CYAE', label: 'Scenario 2' },
+  { id: 'inyNI8Lz66k', label: 'Scenario 3' },
+  { id: '4FveXdBdEG4', label: 'Scenario 4' },
+  { id: 'QIdz9ci8aXY', label: 'Scenario 5' },
+];
+
+const ACADEMIC_PROJECTS = [
+  {
+    title: 'Real-time digital signal processing on a dsPIC33',
+    course: 'Electronics · Instituto Superior Técnico',
+    note: 'Team of three — with Joana Mariano and Susana Azevedo',
+    desc: 'A complete real-time DSP chain built and validated on a Microchip dsPIC33CK64MC105: an ADC/DAC sample loop, a second-order Butterworth IIR bandpass derived from an analog prototype via the bilinear transform, an 11-tap FIR compared across rectangular and Hamming windows, and a digital amplitude detector driving a four-LED threshold display. Integrated with an infrared emitter and phototransistor front end for distance detection, with every stage verified on an oscilloscope against the theoretical prediction.',
+    tools: ['C', 'MATLAB', 'dsPIC33CK64MC105', 'Oscilloscope / FFT'],
+  },
+  {
+    title: 'Gravity-compensated fluid antenna',
+    course: 'Antennas and Propagation · Instituto Superior Técnico',
+    desc: 'An antenna that keeps itself pointed. Two immiscible liquids inside the structure redistribute under buoyancy as it tilts, passively steering the main beam back toward vertical — no motors, no control loop. Modelled in CST Studio Suite, covering radiation-pattern behaviour across tilt angles and S11 return-loss analysis.',
+    tools: ['CST Studio Suite'],
+  },
+  {
+    title: 'Evolution of cooperation and adversarial behaviour',
+    course: 'Network Science · Instituto Superior Técnico',
+    desc: 'An agent-based simulation of evolutionary dynamics over graph structures, where cooperative and adversarial strategies spread and compete according to interaction outcomes and the topology connecting them, examining the conditions under which cooperation survives exploitation. This is evolutionary and social dynamics on networks, not telecommunications network engineering.',
+    tools: ['Simulation', 'Graph theory'],
+  },
+  {
+    title: 'Satellite visibility and GNSS positioning',
+    course: 'Navigation Systems · Instituto Superior Técnico',
+    desc: 'MATLAB implementations of the core geometry behind satellite tracking and GNSS: a visibility-window predictor on an ellipsoidal Earth model, ECEF↔ECI frame transformations, azimuth/elevation to Cartesian conversion, and receiver position solved from pseudorange measurements. Implemented from the underlying mathematics rather than called from a library.',
+    tools: ['MATLAB'],
+  },
+];
+
+const PERSONAL_PROJECTS = [
+  {
+    title: '2D platformer prototype',
+    desc: 'A playable game prototype built in Unity, covering real-time rendering, the game loop, player input handling and interaction mechanics.',
+    tools: ['Unity', 'C#'],
+  },
+  {
+    title: 'Animation work',
+    desc: 'Self-directed animation and motion design, published to a genuine audience and exceeding 2.9 million total views on YouTube.',
+    tools: ['Animation', 'Motion design'],
+  },
+  {
+    title: 'Mobile language lesson audio app',
+    desc: 'A small mobile prototype created to explore structured audio-based language learning.',
+    tools: ['Prototype'],
+  },
+];
 
 const SKILLS = {
   'Aerospace and satellite operations': [
@@ -39,6 +96,55 @@ const SKILLS = {
     'User-centered design',
   ],
 };
+
+/* Click-to-load facade: the YouTube iframe is only mounted once the user
+   asks for it, so five embeds cost nothing on first paint. */
+function VideoCard({ id, label }: { id: string; label: string }) {
+  const [playing, setPlaying] = useState(false);
+
+  return (
+    <figure className="video-card">
+      <div className="video-frame">
+        {playing ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+            title={label}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <button
+            type="button"
+            className="video-facade"
+            onClick={() => setPlaying(true)}
+            aria-label={`Play ${label}`}
+          >
+            <img
+              src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+              alt=""
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+            <span className="video-play" aria-hidden="true" />
+          </button>
+        )}
+      </div>
+      <figcaption className="video-caption">
+        <span className="video-label">{label}</span>
+        <a
+          href={`https://youtu.be/${id}`}
+          target="_blank"
+          rel="noreferrer"
+          className="video-link"
+        >
+          YouTube ↗
+        </a>
+      </figcaption>
+    </figure>
+  );
+}
 
 export default function Home() {
   return (
@@ -126,6 +232,24 @@ export default function Home() {
           >
             View repository
           </a>
+        </div>
+      </section>
+
+      <hr className="section-divider" />
+
+      {/* ─── SCENARIO WALKTHROUGHS ─── */}
+      <section className="home-section" id="walkthroughs">
+        <p className="section-label">Scenario walkthroughs</p>
+        <h2 className="section-title">See the tool in use</h2>
+        <p className="section-intro">
+          Five recorded walkthroughs of the visualization tool. They introduce how the
+          dashboard works and served as the exercise material for the scenario-based
+          user study.
+        </p>
+        <div className="video-strip">
+          {SCENARIOS.map((s) => (
+            <VideoCard key={s.id} id={s.id} label={s.label} />
+          ))}
         </div>
       </section>
 
@@ -260,17 +384,41 @@ export default function Home() {
 
       <hr className="section-divider" />
 
-      {/* ─── OTHER SOFTWARE WORK ─── */}
+      {/* ─── OTHER PROJECTS ─── */}
       <section className="home-section" id="other">
-        <p className="section-label">Other software work</p>
-        <h2 className="section-title">Additional projects</h2>
-        <div className="other-card">
-          <p className="other-card-status">Prototype</p>
-          <p className="other-card-title">Mobile language lesson audio app</p>
-          <p className="other-card-desc">
-            A small mobile prototype created to explore structured audio-based language learning.
-            Included as an example of broader software experimentation outside the thesis project.
-          </p>
+        <p className="section-label">Other projects</p>
+        <h2 className="section-title">Academic and personal work</h2>
+
+        <div className="proj-list">
+          {ACADEMIC_PROJECTS.map((p) => (
+            <article className="proj-card" key={p.title}>
+              <span className="proj-tag">Academic project</span>
+              <p className="proj-title">{p.title}</p>
+              <p className="proj-course">{p.course}</p>
+              {p.note && <p className="proj-note">{p.note}</p>}
+              <p className="proj-desc">{p.desc}</p>
+              <div className="proj-tools">
+                {p.tools.map((t) => (
+                  <span key={t} className="skill-tag">{t}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p className="proj-group-label">Personal projects</p>
+        <div className="proj-list">
+          {PERSONAL_PROJECTS.map((p) => (
+            <article className="proj-card" key={p.title}>
+              <p className="proj-title">{p.title}</p>
+              <p className="proj-desc">{p.desc}</p>
+              <div className="proj-tools">
+                {p.tools.map((t) => (
+                  <span key={t} className="skill-tag">{t}</span>
+                ))}
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
