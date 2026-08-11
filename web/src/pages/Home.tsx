@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { applyTheme, type ThemeName } from '../theme';
 import './Home.css';
 
 /* Scenario walkthrough videos. Labels are Ricardo's own numbering — the
@@ -202,9 +203,37 @@ function ScenarioStrip() {
   );
 }
 
+/* Sits above the sticky nav in normal flow, so it simply scrolls out of
+   view — no scroll listener needed. */
+function ThemeToggle() {
+  const [theme, setTheme] = useState<ThemeName>(
+    () => (document.documentElement.dataset.theme as ThemeName) ?? 'mono',
+  );
+  const next: ThemeName = theme === 'mono' ? 'blue' : 'mono';
+
+  return (
+    <div className="theme-bar">
+      <button
+        type="button"
+        className="theme-toggle"
+        onClick={() => {
+          applyTheme(next);
+          setTheme(next);
+        }}
+        aria-label={`Switch to ${next === 'mono' ? 'light' : 'dark'} theme`}
+      >
+        <span className="theme-toggle-dot" aria-hidden="true" />
+        {next === 'mono' ? 'Light' : 'Dark'}
+      </button>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div className="home">
+
+      <ThemeToggle />
 
       {/* ─── NAV ─── */}
       <nav className="home-nav">
