@@ -1,43 +1,46 @@
 /**
  * Which visual theme the site ships with.
  *
- *   true  → "mono"  cream and black, minimal   ← current default
- *   false → "blue"  dark navy, the original engineering look
+ *   'light' → cream paper, serif display text   ← current default
+ *   'dark'  → dark ochre, warm yellow accents
  *
- * Flip DEFAULT_MONOCHROME to change what a plain `npm run build` produces.
- * `npm run build:mono` / `npm run dev:mono` override it for one run without
- * editing this file.
+ * Change DEFAULT_THEME to alter what a plain `npm run build` produces.
+ * `npm run build:dark` / `npm run dev:dark` override it for one run
+ * without editing this file.
  *
  * Precedence at runtime: ?theme= in the URL, then the visitor's saved
  * choice from the header toggle, then this build-time default.
  */
-const DEFAULT_MONOCHROME = true;
+const DEFAULT_THEME: ThemeName = 'light';
 
-export const MONOCHROME =
-  import.meta.env.VITE_MONOCHROME !== undefined
-    ? import.meta.env.VITE_MONOCHROME === 'true'
-    : DEFAULT_MONOCHROME;
-
-export type ThemeName = 'blue' | 'mono';
+export type ThemeName = 'light' | 'dark';
 
 const STORAGE_KEY = 'rbbsantos-theme';
 
-function isTheme(value: unknown): value is ThemeName {
-  return value === 'mono' || value === 'blue';
+/** Accepts the older "mono"/"blue" names so old links and saved values survive. */
+function normalize(value: unknown): ThemeName | null {
+  if (value === 'light' || value === 'mono') return 'light';
+  if (value === 'dark' || value === 'blue') return 'dark';
+  return null;
 }
 
+export const BUILD_THEME: ThemeName =
+  normalize(import.meta.env.VITE_THEME) ?? DEFAULT_THEME;
+
 export function resolveTheme(): ThemeName {
-  const requested = new URLSearchParams(window.location.search).get('theme');
-  if (isTheme(requested)) return requested;
+  const requested = normalize(
+    new URLSearchParams(window.location.search).get('theme'),
+  );
+  if (requested) return requested;
 
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (isTheme(saved)) return saved;
+    const saved = normalize(localStorage.getItem(STORAGE_KEY));
+    if (saved) return saved;
   } catch {
     // Storage can be unavailable in private browsing; fall through.
   }
 
-  return MONOCHROME ? 'mono' : 'blue';
+  return BUILD_THEME;
 }
 
 /** Apply a theme and remember it for the visitor's next visit. */

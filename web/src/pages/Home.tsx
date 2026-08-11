@@ -203,29 +203,26 @@ function ScenarioStrip() {
   );
 }
 
-/* Sits above the sticky nav in normal flow, so it simply scrolls out of
-   view — no scroll listener needed. */
+/* Lives in the nav row, which scrolls away with the rest of the header. */
 function ThemeToggle() {
   const [theme, setTheme] = useState<ThemeName>(
-    () => (document.documentElement.dataset.theme as ThemeName) ?? 'mono',
+    () => (document.documentElement.dataset.theme as ThemeName) ?? 'light',
   );
-  const next: ThemeName = theme === 'mono' ? 'blue' : 'mono';
+  const next: ThemeName = theme === 'light' ? 'dark' : 'light';
 
   return (
-    <div className="theme-bar">
-      <button
-        type="button"
-        className="theme-toggle"
-        onClick={() => {
-          applyTheme(next);
-          setTheme(next);
-        }}
-        aria-label={`Switch to ${next === 'mono' ? 'light' : 'dark'} theme`}
-      >
-        <span className="theme-toggle-dot" aria-hidden="true" />
-        {next === 'mono' ? 'Light' : 'Dark'}
-      </button>
-    </div>
+    <button
+      type="button"
+      className="theme-toggle"
+      onClick={() => {
+        applyTheme(next);
+        setTheme(next);
+      }}
+      aria-label={`Switch to ${next} theme`}
+    >
+      <span className="theme-toggle-dot" aria-hidden="true" />
+      {next === 'light' ? 'Light' : 'Dark'}
+    </button>
   );
 }
 
@@ -233,17 +230,18 @@ export default function Home() {
   return (
     <div className="home">
 
-      <ThemeToggle />
-
       {/* ─── NAV ─── */}
       <nav className="home-nav">
         <a href="#top" className="home-nav-name">Ricardo Santos</a>
-        <ul className="home-nav-links">
-          <li><a href="#project">Project</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+        <div className="home-nav-right">
+          <ul className="home-nav-links">
+            <li><a href="#project">Project</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <ThemeToggle />
+        </div>
       </nav>
 
       {/* ─── HERO ─── */}

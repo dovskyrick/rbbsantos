@@ -1,83 +1,21 @@
 /* ─── THEMES ───────────────────────────────────────────────────────────
-   Every colour below is a token. The two themes are nothing but two sets
-   of token values — layout, spacing and markup are shared. Add a theme by
-   copying the mono block and changing values; touch nothing else.        */
+   Every colour below is a token. The two themes are two sets of token
+   values — layout, spacing and markup are shared. Bare :root carries the
+   default (light) so the page still renders correctly before/without JS;
+   the dark block overrides only what differs.                           */
 
 :root,
-:root[data-theme='blue'] {
-  /* type families — blue sets display = body, i.e. all sans, as before */
-  --font-body: system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-body);
-  --tracking-hero: -0.025em;
-  --tracking-title: -0.015em;
-
-  /* surfaces */
-  --bg: #070d18;
-  --grid: rgba(74, 120, 200, 0.03);
-  --nav-bg: rgba(7, 13, 24, 0.9);
-  --surface: #0a1526;
-  --surface-alt: #0b1525;
-
-  /* lines */
-  --border: rgba(74, 120, 200, 0.15);
-  --border-quiet: rgba(74, 120, 200, 0.12);
-  --border-faint: rgba(74, 120, 200, 0.09);
-  --border-strong: rgba(74, 120, 200, 0.28);
-  --border-strong-hover: rgba(74, 120, 200, 0.55);
-
-  /* type */
-  --text: #c9d6ed;
-  --text-strong: #eaf0fc;
-  --text-mid: #dde5f4;
-  --text-muted: #7a96be;
-  --text-body: #8aa3c6;
-  --text-dim: #6a84a8;
-  --text-soft: #5d78a0;
-  --text-faint: #4a6890;
-  --text-fainter: #3a5570;
-  --text-caption: #4a6280;
-
-  /* accents */
-  --accent: #3d6cba;
-  --accent-dim: #2d5592;
-  --accent-bg: rgba(45, 85, 146, 0.15);
-  --accent-border: rgba(45, 85, 146, 0.25);
-  --btn-bg: #2558a8;
-  --btn-bg-hover: #2e69c4;
-  --btn-fg: #eaf0fc;
-  --btn-ghost-hover-bg: rgba(74, 120, 200, 0.06);
-  --tag-bg: rgba(74, 120, 200, 0.07);
-  --tag-border: rgba(74, 120, 200, 0.14);
-
-  /* video controls */
-  --dot: rgba(74, 120, 200, 0.28);
-  --dot-hover: rgba(120, 165, 230, 0.6);
-  --dot-active: #6f9fe0;
-  --play-bg: rgba(7, 13, 24, 0.72);
-  --play-border: rgba(148, 184, 236, 0.5);
-  --play-fg: #dde8fa;
-  --play-bg-hover: rgba(45, 85, 146, 0.85);
-  --play-border-hover: rgba(190, 214, 245, 0.8);
-  --thumb-rest-opacity: 0.82;
-
-  /* footer */
-  --footer-link: #2d4a68;
-  --footer-link-hover: #5a80aa;
-}
-
-:root[data-theme='mono'] {
+:root[data-theme='light'] {
   /* A serif for the slowly-read text, sans for everything scanned — the
-     same pairing as the CV. All system faces, so nothing is downloaded.
-     Serifs need less negative tracking than the sans did, hence the
-     looser display values. */
+     same pairing as the CV. All system faces, so nothing is downloaded. */
+  --font-body: system-ui, -apple-system, sans-serif;
   --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino,
     'Book Antiqua', Georgia, serif;
   --tracking-hero: -0.012em;
   --tracking-title: -0.004em;
 
-  /* Warm off-white rather than pure #fff — matches the CV's paper tone
-     and is easier to read at length. The grid is dropped entirely; the
-     restraint is the point. */
+  /* Warm off-white rather than pure #fff — matches the CV's paper tone.
+     No grid; the restraint is the point. */
   --bg: #faf9f7;
   --grid: transparent;
   --nav-bg: rgba(250, 249, 247, 0.88);
@@ -115,18 +53,74 @@
   --dot: rgba(0, 0, 0, 0.18);
   --dot-hover: rgba(0, 0, 0, 0.42);
   --dot-active: #100f0e;
-  /* Dark fill, light glyph: stays legible over a dark thumbnail *and* over
-     the blank surface shown if a thumbnail 404s. */
+  /* Dark fill, light glyph: legible over a dark thumbnail *and* over the
+     blank surface shown if a thumbnail 404s. */
   --play-bg: rgba(16, 15, 14, 0.7);
   --play-border: rgba(255, 255, 255, 0.45);
   --play-fg: #faf9f7;
   --play-bg-hover: rgba(16, 15, 14, 0.92);
   --play-border-hover: rgba(255, 255, 255, 0.75);
-  /* Thumbnails are dark screenshots; on paper they read better full-strength. */
   --thumb-rest-opacity: 0.94;
 
   --footer-link: #8d8c83;
   --footer-link-hover: #100f0e;
+}
+
+:root[data-theme='dark'] {
+  /* Warm earth rather than cool navy: near-black ochre grounds, warm
+     greys for type, and a single soft gold as the accent. Yellow is far
+     brighter than the old blue, so the primary button flips to dark text
+     on gold instead of light text on a mid tone. */
+  --font-display: var(--font-body);
+  --tracking-hero: -0.025em;
+  --tracking-title: -0.015em;
+
+  --bg: #141009;
+  --grid: rgba(212, 165, 87, 0.035);
+  --nav-bg: rgba(20, 16, 9, 0.9);
+  --surface: #1c1710;
+  --surface-alt: #1f1911;
+
+  --border: rgba(212, 165, 87, 0.16);
+  --border-quiet: rgba(212, 165, 87, 0.13);
+  --border-faint: rgba(212, 165, 87, 0.1);
+  --border-strong: rgba(212, 165, 87, 0.3);
+  --border-strong-hover: rgba(212, 165, 87, 0.6);
+
+  --text: #ded4c1;
+  --text-strong: #f6f0e4;
+  --text-mid: #ece5d7;
+  --text-muted: #ab9f8a;
+  --text-body: #bbb09a;
+  --text-dim: #9b907c;
+  --text-soft: #8c8270;
+  --text-faint: #786e5d;
+  --text-fainter: #605748;
+  --text-caption: #6f6555;
+
+  --accent: #dcae57;
+  --accent-dim: #b8934a;
+  --accent-bg: rgba(220, 174, 87, 0.12);
+  --accent-border: rgba(220, 174, 87, 0.26);
+  --btn-bg: #dcae57;
+  --btn-bg-hover: #ecc06a;
+  --btn-fg: #17120a;
+  --btn-ghost-hover-bg: rgba(220, 174, 87, 0.07);
+  --tag-bg: rgba(220, 174, 87, 0.06);
+  --tag-border: rgba(220, 174, 87, 0.15);
+
+  --dot: rgba(220, 174, 87, 0.28);
+  --dot-hover: rgba(236, 198, 122, 0.6);
+  --dot-active: #e6bb6a;
+  --play-bg: rgba(20, 16, 9, 0.72);
+  --play-border: rgba(236, 205, 150, 0.5);
+  --play-fg: #f4e8d2;
+  --play-bg-hover: rgba(184, 147, 74, 0.85);
+  --play-border-hover: rgba(244, 222, 180, 0.8);
+  --thumb-rest-opacity: 0.82;
+
+  --footer-link: #6b6151;
+  --footer-link-hover: #c2ad87;
 }
 
 /* ─── BASE ─── */
@@ -150,12 +144,6 @@ body {
 }
 
 /* ─── THEME TOGGLE ─── */
-
-.theme-bar {
-  display: flex;
-  justify-content: flex-end;
-  padding: 12px 26px 0;
-}
 
 .theme-toggle {
   display: inline-flex;
@@ -209,6 +197,13 @@ body {
   letter-spacing: 0.04em;
   color: var(--text-strong);
   text-decoration: none;
+}
+
+/* Keeps the links and the theme toggle on one row, opposite the name. */
+.home-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
 .home-nav-links {
