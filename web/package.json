@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:mono": "VITE_MONOCHROME=true vite",
     "build": "tsc -b && vite build",
+    "build:mono": "tsc -b && VITE_MONOCHROME=true vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
