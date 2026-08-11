@@ -5,6 +5,12 @@
 
 :root,
 :root[data-theme='blue'] {
+  /* type families — blue sets display = body, i.e. all sans, as before */
+  --font-body: system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-body);
+  --tracking-hero: -0.025em;
+  --tracking-title: -0.015em;
+
   /* surfaces */
   --bg: #070d18;
   --grid: rgba(74, 120, 200, 0.03);
@@ -60,6 +66,15 @@
 }
 
 :root[data-theme='mono'] {
+  /* A serif for the slowly-read text, sans for everything scanned — the
+     same pairing as the CV. All system faces, so nothing is downloaded.
+     Serifs need less negative tracking than the sans did, hence the
+     looser display values. */
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino,
+    'Book Antiqua', Georgia, serif;
+  --tracking-hero: -0.012em;
+  --tracking-title: -0.004em;
+
   /* Warm off-white rather than pure #fff — matches the CV's paper tone
      and is easier to read at length. The grid is dropped entirely; the
      restraint is the point. */
@@ -129,7 +144,7 @@ body {
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 44px 44px;
   color: var(--text);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -209,10 +224,11 @@ body {
 
 .section-title {
   font-size: clamp(22px, 4vw, 30px);
+  font-family: var(--font-display);
   font-weight: 700;
   color: var(--text-strong);
   margin: 0 0 36px;
-  letter-spacing: -0.015em;
+  letter-spacing: var(--tracking-title);
   line-height: 1.15;
 }
 
@@ -220,15 +236,17 @@ body {
 
 .hero-name {
   font-size: clamp(38px, 7vw, 62px);
+  font-family: var(--font-display);
   font-weight: 700;
   color: var(--text-strong);
   margin: 0 0 14px;
-  letter-spacing: -0.025em;
+  letter-spacing: var(--tracking-hero);
   line-height: 1.08;
 }
 
 .hero-tagline {
   font-size: clamp(15px, 2.2vw, 18px);
+  font-family: var(--font-display);
   color: var(--text-muted);
   margin: 0 0 18px;
   font-weight: 400;
@@ -335,6 +353,7 @@ body {
 
 .project-card-title {
   font-size: 19px;
+  font-family: var(--font-display);
   font-weight: 600;
   color: var(--text-strong);
   margin: 0 0 12px;
@@ -509,6 +528,7 @@ body {
 
 .about-text {
   font-size: 16px;
+  font-family: var(--font-display);
   color: var(--text-body);
   line-height: 1.8;
   max-width: 640px;
