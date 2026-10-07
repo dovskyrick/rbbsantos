@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { applyTheme, type ThemeName } from '../theme';
+import { LIVE_DEMO_AVAILABLE, LIVE_DEMO_URL, demoFallbackBtn } from '../site';
 import './Home.css';
 
 /* Scenario walkthrough videos. Labels are Ricardo's own numbering — the
@@ -257,15 +258,17 @@ export default function Home() {
           for satellite analysis.
         </p>
         <div className="hero-buttons">
-          <a
-            href="https://satellite-visualizer-demo.fly.dev"
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-primary"
-          >
-            View satellite demo
-          </a>
-          <a href="/cv.pdf" target="_blank" rel="noreferrer" className="btn btn-outline">
+          {LIVE_DEMO_AVAILABLE && (
+            <a
+              href={LIVE_DEMO_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+            >
+              View satellite demo
+            </a>
+          )}
+          <a href="/cv.pdf" target="_blank" rel="noreferrer" className={demoFallbackBtn}>
             Download CV
           </a>
           <a
@@ -299,19 +302,21 @@ export default function Home() {
           with a Cesium-based spatial view.
         </p>
         <div className="preview-buttons">
-          <a
-            href="https://satellite-visualizer-demo.fly.dev"
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-primary"
-          >
-            Open live demo
-          </a>
+          {LIVE_DEMO_AVAILABLE && (
+            <a
+              href={LIVE_DEMO_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+            >
+              Open live demo
+            </a>
+          )}
           <a
             href="https://github.com/dovskyrick/grafana-satellite-visualizer"
             target="_blank"
             rel="noreferrer"
-            className="btn btn-outline"
+            className={demoFallbackBtn}
           >
             View repository
           </a>
@@ -358,19 +363,21 @@ export default function Home() {
             </li>
           </ul>
           <div className="project-links">
-            <a
-              href="https://satellite-visualizer-demo.fly.dev"
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-primary"
-            >
-              Live demo
-            </a>
+            {LIVE_DEMO_AVAILABLE && (
+              <a
+                href={LIVE_DEMO_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary"
+              >
+                Live demo
+              </a>
+            )}
             <a
               href="https://github.com/dovskyrick/grafana-satellite-visualizer"
               target="_blank"
               rel="noreferrer"
-              className="btn btn-outline"
+              className={demoFallbackBtn}
             >
               GitHub
             </a>
