@@ -53,10 +53,60 @@ const PERSONAL_PROJECTS = [
     desc: 'Self-directed animation and motion design, published to a genuine audience and exceeding 2.9 million total views on YouTube.',
     tools: ['Animation', 'Motion design'],
   },
+];
+
+/* Side projects: small things built for fun, each linked to its public repo.
+   `play` is a live GitHub Pages build; `image` is a screenshot in /public. */
+type SideProject = {
+  title: string;
+  status: string;
+  desc: string;
+  tools: string[];
+  repo: string;
+  play?: string;
+  image?: { src: string; alt: string };
+  extra?: { label: string; href: string };
+};
+
+const SIDE_PROJECTS: SideProject[] = [
   {
-    title: 'Mobile language lesson audio app',
-    desc: 'A small mobile prototype created to explore structured audio-based language learning.',
-    tools: ['Prototype'],
+    title: 'Babelon',
+    status: 'Complete · built in a day',
+    desc: "Borges' Library of Babel as an endless labyrinth, carved around you as you walk. Every text on the floor is a real page of the Library: a page's position maps to its text through an invertible scramble, so every page exists exactly once and any text can be located.",
+    tools: ['React Three Fiber', 'JavaScript', 'Procedural generation'],
+    repo: 'https://github.com/dovskyrick/babelon',
+    play: 'https://dovskyrick.github.io/babelon/',
+    image: {
+      src: '/babelon.webp',
+      alt: 'Top-down view of Babelon: a lamp-lit maze of ochre walls with a glowing page on the floor.',
+    },
+  },
+  {
+    title: 'Aldric: D&D combat trainer',
+    status: 'Playable · built in a day, expanding',
+    desc: 'A MOBA-style trainer for getting used to D&D 2024 combat by playing it. You control a level 6 Oath of Vengeance Paladin, and the rules are enforced as you go: action and bonus action economy, one spell slot per turn, concentration, movement. Next up: more classes and levels, with rules fetched from a proper rules database or API.',
+    tools: ['React Three Fiber', 'TypeScript', 'Game rules modelling'],
+    repo: 'https://github.com/dovskyrick/aldric',
+    play: 'https://dovskyrick.github.io/aldric/',
+    image: {
+      src: '/aldric.webp',
+      alt: 'Aldric trainer: a gridded arena with the paladin, an enemy, and a skill bar of spells and actions.',
+    },
+  },
+  {
+    title: 'Chess-playing robot arm',
+    status: 'In progress · early stage',
+    desc: "A physical chess opponent: a camera reads the board, Stockfish picks a reply, and an SO-101 arm moves the piece. The arm is built, and the next step is running pretrained policies for basic pick-and-place before working up to full chess moves. The learning side builds on my background in reinforcement learning and control theory.",
+    tools: ['Python', 'LeRobot', 'PyTorch', 'OpenCV'],
+    repo: 'https://github.com/dovskyrick/chess-arm',
+    extra: { label: 'Paper I am reading', href: 'https://arxiv.org/abs/2510.12403' },
+  },
+  {
+    title: 'Audio language-learning app',
+    status: 'In progress · mid stage',
+    desc: 'A mobile app for audio-first language lessons. The audio player and the Firebase storage and database layer behind it are in place. Current work is the speech-generation pipeline, adding slow, syllable-by-syllable pronunciation so lessons are easier to follow.',
+    tools: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Text-to-speech'],
+    repo: 'https://github.com/dovskyrick/language-learning',
   },
 ];
 
@@ -237,6 +287,7 @@ export default function Home() {
         <div className="home-nav-right">
           <ul className="home-nav-links">
             <li><a href="#project">Project</a></li>
+            <li><a href="#side-projects">Side projects</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -390,6 +441,66 @@ export default function Home() {
               Thesis PDF
             </a>
           </div>
+        </div>
+      </section>
+
+      <hr className="section-divider" />
+
+      {/* ─── SIDE PROJECTS ─── */}
+      <section className="home-section" id="side-projects">
+        <p className="section-label">Side projects</p>
+        <h2 className="section-title">Things I build for fun</h2>
+        <p className="section-intro">
+          Smaller projects outside the thesis, from one-day games to longer builds
+          that are still in progress.
+        </p>
+        <div className="side-grid">
+          {SIDE_PROJECTS.map((p) => (
+            <article className="side-card" key={p.title}>
+              {p.image && (
+                <a
+                  href={p.play ?? p.repo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="side-shot"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                >
+                  <img src={p.image.src} alt={p.image.alt} loading="lazy" width={1280} height={800} />
+                </a>
+              )}
+              <div className="side-body">
+                <span className="side-status">{p.status}</span>
+                <p className="proj-title">{p.title}</p>
+                <p className="proj-desc">{p.desc}</p>
+                <div className="proj-tools">
+                  {p.tools.map((t) => (
+                    <span key={t} className="skill-tag">{t}</span>
+                  ))}
+                </div>
+                <div className="side-links">
+                  {p.play && (
+                    <a href={p.play} target="_blank" rel="noreferrer" className="btn btn-primary">
+                      Play in browser ↗
+                    </a>
+                  )}
+                  <a
+                    href={p.repo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={p.play ? 'btn btn-outline' : 'btn btn-primary'}
+                  >
+                    GitHub
+                  </a>
+                  {p.extra && (
+                    <a href={p.extra.href} target="_blank" rel="noreferrer" className="btn btn-outline">
+                      {p.extra.label}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

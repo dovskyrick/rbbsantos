@@ -63,8 +63,9 @@ export function PulseRing({
       phase < 0.5 ? phase * 2 - pulseVertOffset : (1 - phase) * 2 - pulseVertOffset
     );
 
-    // opacity: 0 -> maxOpacity -> 0
-    material.opacity = tri * maxOpacity;
+    // opacity: 0 -> maxOpacity -> 0. Written through the mesh rather than
+    // the memoised `material`, which React treats as immutable.
+    (meshRef.current.material as THREE.MeshStandardMaterial).opacity = tri * maxOpacity;
 
     // scale: scaleFrom -> scaleTo during the cycle
     const s = scaleFrom + (scaleTo - scaleFrom) * phase;
