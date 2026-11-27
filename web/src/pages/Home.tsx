@@ -50,7 +50,7 @@ const PERSONAL_PROJECTS = [
   },
   {
     title: 'Animation work',
-    desc: 'Self-directed animation and motion design, published to a genuine audience and exceeding 2.9 million total views on YouTube.',
+    desc: 'Self-directed animation and motion design, published to a genuine audience and reaching 3.5 million+ cumulative views on YouTube.',
     tools: ['Animation', 'Motion design'],
   },
 ];
@@ -110,45 +110,65 @@ const SIDE_PROJECTS: SideProject[] = [
   },
 ];
 
+/* Mirrors the "Technical Skills" rows of the public CV (cv repo,
+   public/cv.typ), plus interface-design skills evidenced by the thesis. */
 const SKILLS = {
-  'Aerospace and satellite operations': [
-    'Satellite operations',
-    'Orbital visualization',
-    'Telemetry interpretation',
-    'Attitude context',
-    'Ground station visibility',
-    'Uncertainty visualization',
-    'Digital twin concepts',
-  ],
-  'Software': [
+  'Programming': [
+    'C',
+    'Python',
+    'JavaScript',
     'TypeScript',
     'React',
-    'Grafana plugin development',
-    'CesiumJS',
-    'JavaScript',
-    'Python',
     'MATLAB',
-    'C',
+    'Bash',
+    'OOP fundamentals',
+  ],
+  'Tools and platforms': [
     'Git',
+    'Linux',
+    'Docker',
+    'REST/JSON APIs',
+    'CI/CD and unit testing (basics)',
+    'LaTeX',
+  ],
+  'Data and visualization': [
+    'Grafana',
+    'CesiumJS (WebGL)',
+    'Data analysis',
+    'Signal processing',
+  ],
+  'Interface design': [
+    'Dashboard design',
+    'Time-linked interaction',
+    'Scenario-based user evaluation',
+    'Human–computer interaction',
+  ],
+  '3D and modelling': [
+    'Unity',
+    'Blender (Python API scripting)',
+    'SolidWorks',
   ],
   'Engineering and simulation': [
     'Simulink',
-    'SolidWorks',
-    'Altium',
-    'Cadence',
     'CST',
     'LTSpice',
+    'Cadence',
     'Xilinx',
   ],
-  'Visualization and interface design': [
-    '3D visualization',
-    'Dashboard design',
-    'Time-linked interaction',
-    'Scenario-based evaluation',
-    'Human–computer interaction',
-    'User-centered design',
-  ],
 };
+
+const CURRENTLY_LEARNING = [
+  'SQL fundamentals',
+  'Recently read: Designing Data-Intensive Applications (Kleppmann)',
+];
+
+const LANGUAGES = [
+  ['Portuguese', 'Native'],
+  ['English', 'Fluent, C2'],
+  ['Spanish', 'Conversational'],
+  ['German', 'Beginner'],
+  ['Greek', 'Beginner, currently learning'],
+];
 
 /* Click-to-load facade: the YouTube iframe is only mounted once the user
    asks for it, so five embeds cost nothing on first paint. */
@@ -299,14 +319,24 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section className="home-section home-section--hero" id="top">
         <p className="section-label">Aerospace Engineering</p>
-        <h1 className="hero-name">Ricardo Santos</h1>
+        <div className="hero-head">
+          <img
+            src="/portrait.webp"
+            alt="Portrait of Ricardo Santos"
+            className="hero-portrait"
+            width={400}
+            height={400}
+          />
+          <h1 className="hero-name">Ricardo Santos</h1>
+        </div>
         <p className="hero-tagline">
-          Master's student focused on satellite operations software and visualization.
+          Aerospace engineer working on software, visualization and embedded systems.
         </p>
         <p className="hero-body">
-          I build tools that connect telemetry, orbital geometry, attitude context,
-          uncertainty, and ground station visibility into clearer operational interfaces
-          for satellite analysis.
+          MSc thesis defended at Instituto Superior Técnico in June 2026. I build
+          interpretable operator tooling: interfaces that bring telemetry, spacecraft
+          attitude, uncertainty and ground station geometry together so operators can
+          see what a system is doing and how far to trust it.
         </p>
         <div className="hero-buttons">
           {LIVE_DEMO_AVAILABLE && (
@@ -397,20 +427,34 @@ export default function Home() {
         <div className="project-card">
           <p className="project-card-title">Satellite operations visualization dashboard</p>
           <p className="project-card-desc">
-            A thesis project exploring how satellite operators can interpret telemetry together
-            with orbital position, attitude, ground station geometry, uncertainty, and observation
-            status in a unified dashboard.
+            My MSc thesis: a visualization tool that helps satellite operators understand a
+            spacecraft's status and how much to trust what they are seeing. Developed alongside
+            the ISTSat student satellite team in their lab, and tested with ten users, including
+            an operator of the ISTSat-1 spacecraft.
           </p>
           <ul className="project-features">
             <li>
-              Visualizes satellite trajectories, observed and predicted segments,
-              uncertainty ellipsoids, attitude, fields of view, and ground station context.
+              Time-synchronized temporal and spatial views: selecting an instant in a telemetry
+              panel updates the 3D spacecraft state, and playback in the 3D view drives the
+              dashboard time cursor.
             </li>
-            <li>Synchronizes time series inspection with a 3D spatial scene.</li>
-            <li>Supports interpretation under sparse contact and partial observability.</li>
-            <li>Built as a Grafana panel plugin using React, TypeScript, and Cesium.</li>
             <li>
-              Evaluated through scenario-based tasks with engineering users and an ISTSat operator.
+              Attitude and pointing: spacecraft model, reference axes, and sensor fields of view
+              projected onto Earth or a celestial map, with Sun and Moon exclusion regions for
+              star-tracker diagnosis.
+            </li>
+            <li>
+              Observed and propagated trajectory segments drawn differently, with positional
+              uncertainty shown as labelled ellipsoids.
+            </li>
+            <li>
+              Source reliability as its own operator-assigned quality attribute, separate from
+              geometric uncertainty.
+            </li>
+            <li>A ground station sky plot linking pass geometry to antenna pointing.</li>
+            <li>
+              Built as a Grafana panel plugin with React, TypeScript and CesiumJS, extending an
+              existing open-source Grafana/Cesium plugin.
             </li>
           </ul>
           <div className="project-links">
@@ -516,11 +560,17 @@ export default function Home() {
             <div className="exp-main">
               <p className="exp-role">Software Engineering Intern</p>
               <p className="exp-org">Six Floor Solutions</p>
-              <p className="exp-desc">
-                Developed internal data analysis software, improved an existing Raspberry Pi
-                project using JavaScript, and worked on an audio processing project using
-                Python and Bash scripts.
-              </p>
+              <ul className="exp-points">
+                <li>Developed internal data analysis tools to support operational workflows.</li>
+                <li>
+                  Deployed, debugged and documented fixes for an existing Raspberry Pi based
+                  system using Docker (JavaScript).
+                </li>
+                <li>
+                  Implemented an audio fingerprinting pipeline in Python: FFT-based spectral peak
+                  extraction and hash matching against a database, for song identification.
+                </li>
+              </ul>
             </div>
             <span className="exp-period">Summer 2024</span>
           </div>
@@ -530,7 +580,7 @@ export default function Home() {
               <p className="exp-role">Electronics Assembler</p>
               <p className="exp-org">Inforlandia</p>
               <p className="exp-desc">
-                Worked in the assembly of computers and electronic devices.
+                Assembled computers and electronic systems in a production environment.
               </p>
             </div>
             <span className="exp-period">2023</span>
@@ -538,10 +588,11 @@ export default function Home() {
 
           <div className="exp-item">
             <div className="exp-main">
-              <p className="exp-role">Programming Teacher</p>
+              <p className="exp-role">Programming Instructor</p>
               <p className="exp-org">Happy Code Portugal</p>
               <p className="exp-desc">
-                Prepared programming lessons and guided students through coding projects.
+                Designed and delivered programming lessons, and guided students through
+                hands-on coding projects.
               </p>
             </div>
             <span className="exp-period">2019</span>
@@ -562,16 +613,30 @@ export default function Home() {
             <div className="edu-main">
               <p className="edu-degree">MSc in Aerospace Engineering</p>
               <p className="edu-institution">Instituto Superior Técnico</p>
-              <p className="edu-gpa">GPA 17 / 20</p>
+              <p className="edu-gpa">GPA 17 / 20 · Thesis defended June 2026</p>
             </div>
-            <span className="edu-period">2024 – present</span>
+            <span className="edu-period">2024 – 2026</span>
+          </div>
+
+          <div className="edu-item">
+            <div className="edu-main">
+              <p className="edu-degree">
+                Master's in Mathematics (Statistics, then Pure Mathematics), not completed
+              </p>
+              <p className="edu-institution">Instituto Superior Técnico</p>
+              <p className="edu-gpa">
+                Completed part of the coursework, then moved to electronics and energy courses
+                and external IST courses in 2023/24, credited toward the Aerospace MSc.
+              </p>
+            </div>
+            <span className="edu-period">2019 – 2023</span>
           </div>
 
           <div className="edu-item">
             <div className="edu-main">
               <p className="edu-degree">BSc in Aerospace Engineering</p>
               <p className="edu-institution">Instituto Superior Técnico</p>
-              <p className="edu-gpa">GPA 15.58 / 20</p>
+              <p className="edu-gpa">GPA 16 / 20</p>
             </div>
             <span className="edu-period">2016 – 2019</span>
           </div>
@@ -636,7 +701,25 @@ export default function Home() {
               </div>
             </div>
           ))}
+          <div>
+            <p className="skill-group-label">Learning</p>
+            <div className="skill-tags">
+              {CURRENTLY_LEARNING.map((tag) => (
+                <span key={tag} className="skill-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
         </div>
+
+        <p className="proj-group-label">Languages</p>
+        <dl className="lang-list">
+          {LANGUAGES.map(([lang, level]) => (
+            <div key={lang} className="lang-item">
+              <dt>{lang}</dt>
+              <dd>{level}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <hr className="section-divider" />
@@ -646,11 +729,13 @@ export default function Home() {
         <p className="section-label">About</p>
         <h2 className="section-title">About me</h2>
         <p className="about-text">
-          I am a Master's student in Aerospace Engineering at Instituto Superior Técnico.
-          My current work focuses on visualization for satellite digital twins, especially
-          the connection between time series telemetry and spatial operational context.
-          I am interested in aerospace software, mission operations tools, data visualization,
-          human–computer interaction, and satellite systems.
+          I am an aerospace engineer from Lisbon, trained at Instituto Superior Técnico.
+          My MSc thesis, defended in June 2026, built visualization tools for satellite
+          digital twins, connecting time series telemetry with the spatial context an
+          operator needs to read it. I am drawn to software that makes complex systems
+          legible: ground segment and operations tooling, data visualization, and
+          embedded work. Outside engineering I play the mridangam (South Indian
+          percussion) and paint in oil on canvas.
         </p>
       </section>
 
@@ -692,8 +777,13 @@ export default function Home() {
 
       {/* ─── FOOTER ─── */}
       <footer className="home-footer">
-        <a href="/visual-experiments" className="home-footer-art">
-          Art and visual experiments →
+        <a
+          href="https://dovsky.com"
+          target="_blank"
+          rel="noreferrer"
+          className="home-footer-art"
+        >
+          Art · dovsky.com ↗
         </a>
       </footer>
 

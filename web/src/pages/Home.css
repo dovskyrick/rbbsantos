@@ -848,6 +848,64 @@ body {
   margin: 40px 0 18px;
 }
 
+/* ─── HERO PORTRAIT ─── */
+
+.hero-head {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-bottom: 14px;
+}
+
+.hero-head .hero-name {
+  margin: 0;
+}
+
+.hero-portrait {
+  width: 104px;
+  height: 104px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-quiet);
+  background: var(--surface-alt);
+}
+
+/* ─── EXPERIENCE BULLETS ─── */
+
+.exp-points {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.exp-points li + li {
+  margin-top: 4px;
+}
+
+/* ─── LANGUAGES ─── */
+
+.lang-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px 24px;
+  margin: 0;
+}
+
+.lang-item dt {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-mid);
+}
+
+.lang-item dd {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
 /* ─── SIDE PROJECTS ─── */
 
 .side-grid {
@@ -923,6 +981,17 @@ body {
 
   .side-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .hero-portrait {
+    width: 88px;
+    height: 88px;
   }
 
   .side-body {
