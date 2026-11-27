@@ -734,8 +734,8 @@ export default function Home() {
           digital twins, connecting time series telemetry with the spatial context an
           operator needs to read it. I am drawn to software that makes complex systems
           legible: ground segment and operations tooling, data visualization, and
-          embedded work. Outside engineering I have run a marathon and several
-          long-distance trail races.
+          embedded work. Outside engineering I play the mridangam (South Indian
+          percussion) and paint in oil on canvas.
         </p>
       </section>
 
@@ -777,8 +777,13 @@ export default function Home() {
 
       {/* ─── FOOTER ─── */}
       <footer className="home-footer">
-        <a href="/visual-experiments" className="home-footer-art">
-          Art and visual experiments →
+        <a
+          href="https://dovsky.com"
+          target="_blank"
+          rel="noreferrer"
+          className="home-footer-art"
+        >
+          Art · dovsky.com ↗
         </a>
       </footer>
 
